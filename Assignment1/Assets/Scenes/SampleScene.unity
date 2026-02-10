@@ -319,8 +319,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.13157819, y: -0.071573876, z: 0.00954119, w: -0.9886725}
-  m_LocalPosition: {x: -1.8275741, y: 11.536622, z: 182.96967}
+  m_LocalRotation: {x: 0.08492352, y: 0.40840968, z: -0.038333822, w: 0.9080309}
+  m_LocalPosition: {x: -24.719276, y: 9.7761345, z: 0.35040256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2497,7 +2497,7 @@ GameObject:
   - component: {fileID: 1329101466}
   - component: {fileID: 1329101465}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2510,7 +2510,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1329101460}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: aad101788d86d6c9f9c3bd85083a1e64, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2590,7 +2590,7 @@ Transform:
   m_GameObject: {fileID: 1329101460}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.25455, y: 11.97, z: 192.95998}
+  m_LocalPosition: {x: -3, y: 12.53, z: 192.95998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2892,6 +2892,7 @@ GameObject:
   - component: {fileID: 1661309953}
   - component: {fileID: 1661309952}
   - component: {fileID: 1661309951}
+  - component: {fileID: 1661309955}
   m_Layer: 0
   m_Name: Slope
   m_TagString: Untagged
@@ -2992,6 +2993,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 485109909}
   m_LocalEulerAnglesHint: {x: -2, y: 0, z: 0}
+--- !u!114 &1661309955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661309950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99abdad00fd503bd78cedc2ce3e0f7fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AddBalls
+  ball: {fileID: 1329101460}
 --- !u!1 &1748672034
 GameObject:
   m_ObjectHideFlags: 0
@@ -3134,7 +3148,7 @@ Transform:
   m_GameObject: {fileID: 1760224496}
   serializedVersion: 2
   m_LocalRotation: {x: 0.69465834, y: -0, z: -0, w: 0.71933985}
-  m_LocalPosition: {x: 0, y: 0.33500004, z: -0.010999918}
+  m_LocalPosition: {x: 0, y: 0.3355, z: -0.010999918}
   m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
