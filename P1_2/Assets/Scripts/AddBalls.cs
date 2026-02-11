@@ -3,18 +3,19 @@ using UnityEngine;
 public class AddBalls : MonoBehaviour
 {
     public GameObject ball;
+    public float SpawnRate = 5f;
     void Start()
     {
-        InvokeRepeating("AddBall", 3, 5);
+        InvokeRepeating("AddBall", 3, SpawnRate);
     }
 
     void AddBall()
     {
         const int xmin = -3;
-        const int xmax = 3;
-        const int ymin = 20;
-        const int ymax = 30;
-        const int zmin = 145;
+        const int xmax = 4;
+        const int ymin = 15;
+        const int ymax = 25;
+        const int zmin = 95;
         const int zmax = 195;
         float x = Random.Range(xmin, xmax);
         float y = Random.Range(ymin, ymax);
