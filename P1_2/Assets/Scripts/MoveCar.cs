@@ -4,7 +4,8 @@ public class MoveCar : MonoBehaviour
 {
     public float maxSpeed;
     public float fuel;
-    public Driver driver;
+    [SerializeField]
+    private Driver driver;
     private Rigidbody rb; 
 
     void Start()
@@ -14,12 +15,12 @@ public class MoveCar : MonoBehaviour
     }
 
     //TODO
-    public void awake(){
+    private void awake(){
 
     }
 
     //TODO
-    public void FixedUpdate(){
+    private void FixedUpdate(){
         rb.MovePosition(rb.position + driver.move(maxSpeed));
     }
 }
