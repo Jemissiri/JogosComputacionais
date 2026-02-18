@@ -14,7 +14,6 @@ public class MoveCar : MonoBehaviour
         if (rb == null) Debug.LogError("Rigidbody component not found on the player.");
     }
 
-    //TODO fuel consumption
 
     private void Update()
     {
