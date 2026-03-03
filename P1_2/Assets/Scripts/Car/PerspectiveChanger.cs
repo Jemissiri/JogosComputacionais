@@ -7,15 +7,7 @@ public class PerspectiveChanger : MonoBehaviour
     [SerializeField] private Camera backCam;
     void OnPerspective()
     {
-        if (frontCam.enabled)
-        {
-            frontCam.enabled = false;
-            backCam.enabled = true;
-        }
-        else
-        {
-            frontCam.enabled = true;
-            backCam.enabled = false;
-        }
+        frontCam.enabled = !frontCam.enabled;
+        backCam.enabled = !backCam.enabled;
     }
 }
