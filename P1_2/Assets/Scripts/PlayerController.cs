@@ -4,32 +4,39 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
-    private Rigidbody rb;
+    public float fuel = 100;
+    private Vector2 _deltaMove;
+    [SerializeField] private Camera frontCam;
+    [SerializeField] private Camera backCam;
 
-    void Start()
+
+    void OnPerspective()
     {
-        rb = GetComponent<Rigidbody>();
-        if (rb == null) Debug.LogError("Rigidbody component not found on the player.");
+        if (frontCam.enabled)
+        {
+            frontCam.enabled = false;
+            backCam.enabled = true;
+        }
+        else
+        {
+            frontCam.enabled = true;
+            backCam.enabled = false;
+        }
     }
-
-    void FixedUpdate()
+    void OnMove(InputValue value) {
+        _deltaMove = value.Get<Vector2>();
+    }
+    void Update()
     {
-        Vector2 moveInput = Vector2.zero;
-        
-        if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) 
-            moveInput.y = 1f;
-        if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) 
-            moveInput.y = -1f;
-
-        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) 
-            moveInput.x = -1f;
-        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)    
-            moveInput.x = 1f;
-
-        Vector3 moveFoward = transform.forward * moveInput.y * speed * Time.fixedDeltaTime;
-        Vector3 moveRight = transform.right * moveInput.x * speed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + moveFoward + moveRight);
-
-
+        if (fuel > 0)
+        {
+            Vector3 deltaPosition = new Vector3(_deltaMove.x, 0, _deltaMove.y);
+            transform.position += deltaPosition * (speed * Time.deltaTime);
+            if (deltaPosition.sqrMagnitude > 0) // basicamente ver se o vetor nao e (0,0,0)
+            {
+                fuel -= Time.deltaTime;
+                if (fuel < 0) fuel = 0;
+            }        
+        }
     }
 }

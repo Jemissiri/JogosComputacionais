@@ -5,14 +5,7 @@ public class MoveCar : MonoBehaviour
     public float maxSpeed = 5f;
     public float fuel = 100;
     [SerializeField] private Driver driver;
-    private Rigidbody rb; 
-
     private Vector3 currentVelocity = Vector3.zero;
-
-    private void Awake(){
-        rb = GetComponent<Rigidbody>();
-        if (rb == null) Debug.LogError("Rigidbody component not found on the player.");
-    }
 
 
     private void Update()

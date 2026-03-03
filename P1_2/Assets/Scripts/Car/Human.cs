@@ -3,21 +3,14 @@ using UnityEngine.InputSystem;
 
 class Human : Driver
 {
+    private Vector2 _deltaMove;
     public override Vector3 move(float maxSpeed) {
-
-        //get data from inputs
-        float dx = 0;
-        float dz = 0;
-        
-        if (Keyboard.current != null)
-        {
-            if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) dx = -1;
-            if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) dx = 1;
-
-            if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) dz = 1;
-            if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed) dz = -1;
-        }
-
+        //move forward
+        float dz = _deltaMove.y;
+        float dx = _deltaMove.x;
         return new Vector3(dx, 0, dz) * maxSpeed;
+    }
+    public void OnMove(InputValue value) {
+        _deltaMove = value.Get<Vector2>();
     }
 }
