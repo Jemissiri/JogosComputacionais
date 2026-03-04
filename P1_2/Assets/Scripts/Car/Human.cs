@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 class Human : Driver
 {
@@ -8,9 +9,15 @@ class Human : Driver
         //move forward
         float dz = _deltaMove.y;
         float dx = _deltaMove.x;
-        return new Vector3(dx, 0, dz) * maxSpeed;
+        rotate(dx);
+        return new Vector3(0, 0, dz) * maxSpeed;
     }
     public void OnMove(InputValue value) {
         _deltaMove = value.Get<Vector2>();
+    }
+
+    private void rotate(float dz) {
+        if (Mathf.Approximately(dz, 0f)) return;
+        transform.Rotate(0f, Mathf.Sign(dz), 0f, Space.Self);
     }
 }
