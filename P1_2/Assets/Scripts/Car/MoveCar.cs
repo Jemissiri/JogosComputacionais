@@ -12,8 +12,12 @@ public class MoveCar : MonoBehaviour
         {
             Vector3 dPosition = driver.move(maxSpeed);
             dPosition.z *= Mathf.Cos(transform.eulerAngles.y * Mathf.Deg2Rad);
-            transform.position += dPosition * Time.deltaTime;
-            fuel -= Time.deltaTime;
+            dPosition.x *= Mathf.Sin(transform.eulerAngles.y * Mathf.Deg2Rad);
+            if (dPosition.z * dPosition.z > 0)
+            {
+                transform.position += dPosition * Time.deltaTime;
+                fuel -= Time.deltaTime;
+            }
             if (fuel < 0) fuel = 0;
         }
     }

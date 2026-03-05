@@ -10,7 +10,7 @@ class Human : Driver
         float dz = _deltaMove.y;
         float dx = _deltaMove.x;
         rotate(dx);
-        return new Vector3(0, 0, dz) * maxSpeed;
+        return new Vector3(dz, 0, dz) * maxSpeed;
     }
     public void OnMove(InputValue value) {
         _deltaMove = value.Get<Vector2>();
