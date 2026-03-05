@@ -3692,11 +3692,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1661309950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99abdad00fd503bd78cedc2ce3e0f7fe, type: 3}
+  m_Script: {fileID: 11500000, guid: cccbee8f1047a1b93bedc3eae1767a27, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AddBalls
+  m_EditorClassIdentifier: Assembly-CSharp::Spawner
   ball: {fileID: 304834971397714932, guid: 15219639470d654a38d49d25a74ebfa0, type: 3}
-  SpawnRate: 5
+  vehicles:
+  - {fileID: 104122, guid: 3703b76473fc877f487c8bd549533016, type: 3}
+  - {fileID: 126218, guid: 4be4699a35f1b9ea8b4e73142b4d9fc2, type: 3}
+  - {fileID: 194810, guid: 464805bee7bf8d71dab7e9c07c308b40, type: 3}
+  - {fileID: 178130, guid: 6503e24179fd1549da781c4db35e62a1, type: 3}
+  - {fileID: 118600, guid: b3e428c644011fffe9f0d536571950dd, type: 3}
+  BallSpawnRate: 5
+  VehicleTopLeftSpawnRate: 5
+  VehicleBottomRightSpawnRate: 10
 --- !u!1 &1748672034
 GameObject:
   m_ObjectHideFlags: 0
