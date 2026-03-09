@@ -53,7 +53,7 @@ public class Spawner : MonoBehaviour
 
     void AddTopLeftVehicle()
     {
-        addVehicles(new Vector3(-1.85f, 10, 180), 3f, Quaternion.Euler(0, 180, 0));
+        addVehicles(new Vector3(-1.85f, 10, 195), 3f, Quaternion.Euler(0, 180, 0));
     }
 
     void AddBottomRightVehicle()
