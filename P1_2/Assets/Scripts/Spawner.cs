@@ -11,8 +11,8 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         InvokeRepeating("AddBall", 3, BallSpawnRate);
-        InvokeRepeating("AddTopLeftVehicle", 3, VehicleTopLeftSpawnRate);
-        InvokeRepeating("AddBottomRightVehicle", 3, VehicleBottomRightSpawnRate);
+        InvokeRepeating("AddTopLeftVehicle", 5, VehicleTopLeftSpawnRate);
+        InvokeRepeating("AddBottomRightVehicle", 10, VehicleBottomRightSpawnRate);
     }
 
     // Update is called once per frame
