@@ -11,8 +11,8 @@ class Human : Driver
         //move forward
         float dz = _deltaMove.y;
         float dx = _deltaMove.x;
-        rotate(dx);
-        return new Vector3(dz, 0, dz) * maxSpeed;
+        // rotate(dx);
+        return new Vector3(dx, 0, dz) * maxSpeed;
     }
 
     public void OnMove(InputValue value) {
