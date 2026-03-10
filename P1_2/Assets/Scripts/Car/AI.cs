@@ -7,12 +7,13 @@ class AI : Driver
 
     void Start() {
         moveVector = Vector3.forward;
+        moveVector.z *= Mathf.Cos(transform.eulerAngles.y * Mathf.Deg2Rad);
+
     }
     public override Vector3 move(float maxSpeed) {
         if (sensor.Detected) {
             moveVector = sensor.Target.transform.position - transform.position;
             moveVector.Normalize();
-            moveVector.z = Mathf.Abs(moveVector.z);
             return moveVector * maxSpeed;
         }
         return moveVector * maxSpeed;
