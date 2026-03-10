@@ -45,6 +45,9 @@ public class Spawner : MonoBehaviour
         GameObject vehicle = Instantiate(vehicles[v], pos, rot);
         vehicle.AddComponent<Despawner>();
         AI ai = vehicle.AddComponent<AI>();
+        Sensor sensor = vehicle.AddComponent<Sensor>();
+        ai.sensor = sensor;
+        sensor.Target = GameObject.Find("Player");
         MoveCar mc = vehicle.AddComponent<MoveCar>();
         mc.fuel = 100;
         mc.maxSpeed = speed;
