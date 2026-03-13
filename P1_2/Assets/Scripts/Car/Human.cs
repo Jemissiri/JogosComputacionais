@@ -7,21 +7,16 @@ class Human : Driver
     private Vector2 _deltaMove;
     private int hits;
 
-    public override Vector3 move(float maxSpeed) {
-        //move forward
+    public override Vector3 Move(float maxSpeed) 
+    {
         float dz = _deltaMove.y;
         float dx = _deltaMove.x;
-        // rotate(dx);
         return new Vector3(dx, 0, dz) * maxSpeed;
     }
 
-    public void OnMove(InputValue value) {
+    public void OnMove(InputValue value) 
+    {
         _deltaMove = value.Get<Vector2>();
-    }
-
-    private void rotate(float dz) {
-        if (Mathf.Approximately(dz, 0f)) return;
-        transform.Rotate(0f, Mathf.Sign(dz), 0f, Space.Self);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -32,9 +27,7 @@ class Human : Driver
         bool collidedWithBall = root.name.StartsWith("Ball");
 
         if (collidedWithVehicle || collidedWithBall)
-        {
             hits++;
-        }
     }
 
     private void OnGUI()

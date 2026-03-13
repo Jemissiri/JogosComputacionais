@@ -3,6 +3,7 @@ using UnityEngine;
 public class HitSound : MonoBehaviour
 {
     AudioSource source;
+    
     void Start()
     {
         source = GetComponent<AudioSource>();
@@ -12,9 +13,4 @@ public class HitSound : MonoBehaviour
     {
         source.Play();
     }
-
-    // void Update()
-    // {
-        
-    // }
 }

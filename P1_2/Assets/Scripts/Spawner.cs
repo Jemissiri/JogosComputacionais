@@ -15,12 +15,6 @@ public class Spawner : MonoBehaviour
         InvokeRepeating("AddBottomRightVehicle", 10, VehicleBottomRightSpawnRate);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void AddBall()
     {
         const int xmin = -3;
@@ -39,7 +33,7 @@ public class Spawner : MonoBehaviour
         Instantiate(ball, position, Quaternion.identity);
     }
     
-    void addVehicles(Vector3 pos, float speed, Quaternion rot) 
+    void AddVehicles(Vector3 pos, float speed, Quaternion rot) 
     {
         int v = (int) Mathf.Round(Random.Range(0,vehicles.Length));
         GameObject vehicle = Instantiate(vehicles[v], pos, rot);
@@ -56,11 +50,11 @@ public class Spawner : MonoBehaviour
 
     void AddTopLeftVehicle()
     {
-        addVehicles(new Vector3(-1.85f, 10, 195), 3f, Quaternion.Euler(0, 180, 0));
+        AddVehicles(new Vector3(-1.85f, 10, 195), 3f, Quaternion.Euler(0, 180, 0));
     }
 
     void AddBottomRightVehicle()
     {
-        addVehicles(new Vector3(1.85f, 2, 5), 3f, Quaternion.Euler(0, 0, 0));
+        AddVehicles(new Vector3(1.85f, 2, 5), 3f, Quaternion.Euler(0, 0, 0));
     }
 }
