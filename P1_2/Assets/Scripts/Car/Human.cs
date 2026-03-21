@@ -1,11 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+using TMPro;
 
 class Human : Driver
 {
     private Vector2 _deltaMove;
     private int hits;
+
+    [SerializeField] private TextMeshProUGUI hitTextUI;
+
+    public void Start() 
+    {
+        hits = 0;
+        UpdateHitUI();
+    }
 
     public override Vector3 Move(float maxSpeed) 
     {
@@ -27,12 +35,16 @@ class Human : Driver
         bool collidedWithBall = root.name.StartsWith("Ball");
 
         if (collidedWithVehicle || collidedWithBall)
+        {
             hits++;
+            UpdateHitUI();
+        }
     }
 
-    private void OnGUI()
+    private void UpdateHitUI()
     {
-        GUI.Label(new Rect(10, 10, 100, 20), "hits: " + hits);
+        if (hitTextUI != null)
+            hitTextUI.text = "Hits: " + hits;
     }
 
 }
