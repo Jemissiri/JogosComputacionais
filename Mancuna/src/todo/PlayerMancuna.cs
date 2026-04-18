@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-/** @author Gemini CLI
- *  @version 20260416
+/** @author a75545 a79828 a79845 
  *
  *  MiniMax Agent for Mancuna with Alpha-Beta Pruning and Transposition Table.
  */
