@@ -7,7 +7,7 @@ using System.Linq;
  *  MiniMax Agent for Mancuna with Alpha-Beta Pruning and Transposition Table.
  */
 
-public class PlayerMancuna : Player {
+public class aa : Player {
 
     private enum Bound { Exact, Lower, Upper } // Lower comes from a beta cut, Upper from an alpha cut
 
@@ -19,7 +19,7 @@ public class PlayerMancuna : Player {
 
     private Dictionary<int, CacheEntry> cache = new();
 
-	public PlayerMancuna(string name, int pos) : base(name, pos) {  }
+	public aa(string name, int pos) : base(name, pos) {  }
 
 	public override int play(IBoard board) { 
         cache.Clear();
@@ -30,28 +30,35 @@ public class PlayerMancuna : Player {
         var (children, actions) = board.children();
         if (actions.Count == 0) return board.firstAction();
 
-        int bestAction = actions[0];
+        // --- Move Ordering ---
+        // Sort actions by their immediate heuristic value to improve pruning
+        var ordered = actions.Select((action, index) => new { 
+            Action = action, 
+            Child = children[index], 
+            Score = Heuristic(children[index]) 
+        }).OrderByDescending(x => x.Score).ToList();
+
+        int bestAction = ordered[0].Action;
         double bestValue = double.NegativeInfinity;
 
-        int searchDepth = 24; 
+	    int searchDepth = 12; 
 
-        for (int i = 0; i < children.Count; i++) {
-            double value = Minimax(children[i], searchDepth, double.NegativeInfinity, double.PositiveInfinity, false);
-            
+        foreach (var item in ordered) {
+            double value = Minimax(item.Child, searchDepth, double.NegativeInfinity, double.PositiveInfinity, false);
+
             if (value > bestValue) {
                 bestValue = value;
-                bestAction = actions[i];
+                bestAction = item.Action;
             }
         }
 
-        return bestAction;
+	    return bestAction;
 	}
-
     private double Minimax(IBoard board, int depth, double alpha, double beta, bool maximizingPlayer) {
         int winner = board.winner();
         if (winner != (int)GameEnd.InProgress) {
             if (winner == _position) return 1000 + depth;
-            if (winner == (int)GameEnd.Tie) return 0;
+            if (winner == (int)GameEnd.Tie) return board.score(_position) - board.score(1 - _position);
             return -1000 - depth;
         }
 
