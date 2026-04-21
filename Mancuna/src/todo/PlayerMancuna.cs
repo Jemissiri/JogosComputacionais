@@ -7,7 +7,7 @@ using System.Linq;
  *  MiniMax Agent for Mancuna with Alpha-Beta Pruning and Transposition Table.
  */
 
-public class aa : Player {
+public class PlayerMancuna : Player {
 
     private enum Bound { Exact, Lower, Upper } // Lower comes from a beta cut, Upper from an alpha cut
 
@@ -19,7 +19,7 @@ public class aa : Player {
 
     private Dictionary<int, CacheEntry> cache = new();
 
-	public aa(string name, int pos) : base(name, pos) {  }
+	public PlayerMancuna(string name, int pos) : base(name, pos) {  }
 
 	public override int play(IBoard board) { 
         cache.Clear();
