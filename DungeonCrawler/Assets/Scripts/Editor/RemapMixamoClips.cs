@@ -12,12 +12,18 @@ public class RemapMixamoClips : MonoBehaviour
     {
         string[] fbxPaths = {
             "Assets/Art/Animations/Ellen/Ellen@Jog Strafe Left.fbx",
-            "Assets/Art/Animations/Ellen/Ellen@Jog Strafe Right.fbx"
+            "Assets/Art/Animations/Ellen/Ellen@Jog Strafe Right.fbx",
+            "Assets/Art/Animations/Ellen/Ellen@Standing Dodge Forward.fbx",
+            "Assets/Art/Animations/Ellen/Ellen@Standing Dodge Backward.fbx"
         };
 
         foreach (var fbxPath in fbxPaths)
         {
             var assets = AssetDatabase.LoadAllAssetsAtPath(fbxPath);
+            Debug.Log(fbxPath + " — total assets loaded: " + assets.Length);
+            foreach (var a in assets)
+                Debug.Log("  asset: " + a.GetType().Name + " name='" + a.name + "'");
+
             AnimationClip sourceClip = null;
             foreach (var a in assets)
             {
@@ -30,9 +36,10 @@ public class RemapMixamoClips : MonoBehaviour
 
             if (sourceClip == null)
             {
-                Debug.LogWarning("No clip found in " + fbxPath);
+                Debug.LogWarning("No clip found in " + fbxPath + " — try right-clicking the FBX in the Project window and choosing Reimport, then run this again.");
                 continue;
             }
+            Debug.Log(fbxPath + " — using clip: '" + sourceClip.name + "'");
 
             string savePath = fbxPath.Replace(".fbx", "_Remapped.anim");
             var existing = AssetDatabase.LoadAssetAtPath<AnimationClip>(savePath);
@@ -42,15 +49,15 @@ public class RemapMixamoClips : MonoBehaviour
             targetClip.name = sourceClip.name + "_Remapped";
             targetClip.frameRate = sourceClip.frameRate;
             var clipSettings = AnimationUtility.GetAnimationClipSettings(sourceClip);
-            clipSettings.loopTime = true;
+            clipSettings.loopTime = fbxPath.Contains("Strafe");
             AnimationUtility.SetAnimationClipSettings(targetClip, clipSettings);
 
-            foreach (var binding in AnimationUtility.GetCurveBindings(sourceClip))
+            var bindings = AnimationUtility.GetCurveBindings(sourceClip);
+            Debug.Log(fbxPath + " — source curves: " + bindings.Length);
+
+            foreach (var binding in bindings)
             {
-                // Skip root transform curves (empty path) — these are root motion
-                // and would incorrectly move Ellen_Skeleton as a child bone
-                if (string.IsNullOrEmpty(binding.path))
-                    continue;
+                if (string.IsNullOrEmpty(binding.path)) continue;
 
                 var newBinding = binding;
                 newBinding.path = "Ellen_Skeleton/" + binding.path;

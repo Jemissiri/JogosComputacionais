@@ -3,6 +3,10 @@ Assets/3DGamekit/
 !Assets/3DGamekit/Art/Animations/
 !Assets/3DGamekit/Art/Animations/Animators/
 !Assets/3DGamekit/Art/Animations/Animators/Characters/
+!Assets/3DGamekit/Scripts/
+!Assets/3DGamekit/Scripts/Game/
+!Assets/3DGamekit/Scripts/Game/Player/
+!Assets/3DGamekit/Scripts/Game/Player/StateMachineBehaviour/
 
 
 

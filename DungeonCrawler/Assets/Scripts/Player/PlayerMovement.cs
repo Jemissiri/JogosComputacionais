@@ -8,27 +8,33 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed = 8f;
     public float gravity = 9.81f;
     public float rotationSpeed = 15f;
+    public float blinkDistance = 5f;
+    public float blinkCooldown = 0.8f;
 
     private CharacterController controller;
     private Animator animator;
     private Vector2 moveInput;
     private float verticalSpeed;
     private Quaternion targetRotation;
+    private float blinkCooldownTimer;
 
     readonly int m_HashForwardSpeed  = Animator.StringToHash("ForwardSpeed");
     readonly int m_HashLateralSpeed  = Animator.StringToHash("LateralSpeed");
     readonly int m_HashGrounded      = Animator.StringToHash("Grounded");
     readonly int m_HashInputDetected = Animator.StringToHash("InputDetected");
     readonly int m_HashAngleDeltaRad = Animator.StringToHash("AngleDeltaRad");
+    readonly int m_HashMeleeAttack   = Animator.StringToHash("MeleeAttack");
+    readonly int m_HashStateTime     = Animator.StringToHash("StateTime");
 
     private float previousYAngle;
 
     void Awake()
     {
-        controller     = GetComponent<CharacterController>();
-        animator       = GetComponent<Animator>();
-        targetRotation = transform.rotation;
-        previousYAngle = transform.eulerAngles.y;
+        controller               = GetComponent<CharacterController>();
+        animator                 = GetComponent<Animator>();
+        animator.applyRootMotion = false;
+        targetRotation           = transform.rotation;
+        previousYAngle           = transform.eulerAngles.y;
     }
 
     public void OnMove(InputValue value)
@@ -38,10 +44,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        blinkCooldownTimer -= Time.deltaTime;
         HandleGravity();
         HandleMovement();
         HandleRotation();
         HandleAnimator();
+        HandleAttack();
     }
 
     void HandleGravity()
@@ -81,6 +89,32 @@ public class PlayerMovement : MonoBehaviour
 
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
+
+    void HandleAttack()
+    {
+        animator.SetFloat(m_HashStateTime, Mathf.Repeat(animator.GetCurrentAnimatorStateInfo(0).normalizedTime, 1f));
+
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+            animator.SetTrigger(m_HashMeleeAttack);
+
+        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame && blinkCooldownTimer <= 0f)
+        {
+            Vector3 input = new Vector3(moveInput.x, 0f, moveInput.y);
+            Vector3 blinkDir = input.sqrMagnitude > 0.01f ? input.normalized : transform.forward;
+
+            Vector3 startPos = transform.position;
+            BlinkGhost.Spawn(transform);
+            controller.enabled = false;
+            transform.position += blinkDir * blinkDistance;
+            controller.enabled = true;
+            BlinkGhost.SpawnTrail(startPos, transform.position);
+
+            blinkCooldownTimer = blinkCooldown;
+        }
+    }
+
+    public void MeleeAttackStart(int throwing = 0) { }
+    public void MeleeAttackEnd() { }
 
     void HandleAnimator()
     {

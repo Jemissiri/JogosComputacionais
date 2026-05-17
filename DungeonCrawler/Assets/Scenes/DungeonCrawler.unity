@@ -904,6 +904,8 @@ MonoBehaviour:
   maxSpeed: 5
   gravity: 9.81
   rotationSpeed: 15
+  blinkDistance: 3
+  blinkCooldown: 1
 --- !u!1001 &727960985
 PrefabInstance:
   m_ObjectHideFlags: 0
