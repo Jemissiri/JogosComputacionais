@@ -901,8 +901,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac46c04094d051c029e21e255fbc3d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  maxSpeed: 8
+  maxSpeed: 5
   gravity: 9.81
+  rotationSpeed: 15
 --- !u!1001 &727960985
 PrefabInstance:
   m_ObjectHideFlags: 0

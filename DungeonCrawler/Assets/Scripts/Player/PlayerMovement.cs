@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Quaternion targetRotation;
 
     readonly int m_HashForwardSpeed  = Animator.StringToHash("ForwardSpeed");
+    readonly int m_HashLateralSpeed  = Animator.StringToHash("LateralSpeed");
     readonly int m_HashGrounded      = Animator.StringToHash("Grounded");
     readonly int m_HashInputDetected = Animator.StringToHash("InputDetected");
     readonly int m_HashAngleDeltaRad = Animator.StringToHash("AngleDeltaRad");
@@ -86,10 +87,12 @@ public class PlayerMovement : MonoBehaviour
         bool hasInput = moveInput.sqrMagnitude > 0f;
 
         float forwardSpeed = 0f;
+        float lateralSpeed = 0f;
         if (hasInput)
         {
             Vector3 moveDir = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
             forwardSpeed = Vector3.Dot(transform.forward, moveDir) * maxSpeed;
+            lateralSpeed = Vector3.Dot(transform.right,   moveDir) * maxSpeed;
         }
 
         float currentYAngle = transform.eulerAngles.y;
@@ -97,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         previousYAngle = currentYAngle;
 
         animator.SetFloat(m_HashForwardSpeed,  forwardSpeed,  0.1f, Time.deltaTime);
+        animator.SetFloat(m_HashLateralSpeed,  lateralSpeed,  0.1f, Time.deltaTime);
         animator.SetFloat(m_HashAngleDeltaRad, angleDeltaRad, 0.1f, Time.deltaTime);
         animator.SetBool(m_HashGrounded,      controller.isGrounded);
         animator.SetBool(m_HashInputDetected, hasInput);
