@@ -1,0 +1,8 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="SimpleSFXRuntime.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="WorldBuildingRuntime.csproj" />
+  <Project Path="Skybox3DRuntime.csproj" />
+  <Project Path="PackageManagerCheck.csproj" />
+</Solution>
