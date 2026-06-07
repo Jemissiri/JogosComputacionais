@@ -6,9 +6,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform target;
 
     [Header("Offset")]
-    [SerializeField] private float height   = 14f;
+    [SerializeField] private float height   = 1f;
     [SerializeField] private float distance = 10f;
-    [SerializeField] private float pitch    = 55f;  // degrees down from horizontal
+    [SerializeField] private float pitch    = 45f;  // degrees down from horizontal
 
     [Header("Follow")]
     [SerializeField] private float smoothSpeed = 8f;

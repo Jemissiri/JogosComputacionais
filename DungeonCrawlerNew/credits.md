@@ -7,4 +7,4 @@ https://assetstore.unity.com/packages/3d/animations/rpg-character-mecanim-animat
 https://kaylousberg.itch.io/kaykit-adventurers          License: CC0
 
 
-
+All YBot and animations for it in mixamo
