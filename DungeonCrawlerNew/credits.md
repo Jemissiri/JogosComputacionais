@@ -8,3 +8,5 @@ https://kaylousberg.itch.io/kaykit-adventurers          License: CC0
 
 
 All YBot and animations for it in mixamo
+
+https://kevdev.itch.io/human-spellcasting-animations-free

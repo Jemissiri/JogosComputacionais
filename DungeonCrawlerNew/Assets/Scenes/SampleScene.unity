@@ -288,6 +288,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
   healthSlider: {fileID: 1350467736}
+--- !u!95 &143379976
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143379968}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
+  m_Controller: {fileID: 9100000, guid: aee94f93681178ee08518472bd1c296b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &252233113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -296,6 +318,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -336,6 +370,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
       propertyPath: m_Name
       value: Y Bot
@@ -368,6 +406,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
       insertIndex: -1
       addedObject: {fileID: 143379975}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 143379976}
   m_SourcePrefab: {fileID: 100100000, guid: ffbe45f5d9885fef2b16b3b5dd3ab232, type: 3}
 --- !u!1 &330585543
 GameObject:
@@ -731,7 +772,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 55104b0b5e2d82119b4a244e5bc51f81, type: 3}
   m_PrefabInstance: {fileID: 1292251046}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &616164789
+--- !u!64 &616164793
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1014,7 +1055,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 55104b0b5e2d82119b4a244e5bc51f81, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 616164789}
+      addedObject: {fileID: 616164793}
   m_SourcePrefab: {fileID: 100100000, guid: 55104b0b5e2d82119b4a244e5bc51f81, type: 3}
 --- !u!1 &1350467734
 GameObject:
