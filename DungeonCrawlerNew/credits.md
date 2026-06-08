@@ -15,3 +15,15 @@ https://assetstore.unity.com/packages/vfx/particles/spells/magic-effects-free-24
 https://assetstore.unity.com/packages/vfx/particles/spells/100-best-effects-pack-25634 License: Standard Unity Asset Store EULA
 
 https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565?srsltid=AfmBOoqpQ0QjAaYH5i9oHuN2rkNAFpB8nHgTv1iGgoW0dsSwl1xygAPt        License: Standard Unity Asset Store EULA
+
+https://quaternius.com/packs/ultimatemonsters.html         License: CC0
+
+
+
+
+
+
+
+
+
+
