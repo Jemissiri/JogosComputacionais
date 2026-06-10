@@ -6,15 +6,16 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform target;
 
     [Header("Offset")]
-    [SerializeField] private float height   = 1f;
-    [SerializeField] private float distance = 10f;
-    [SerializeField] private float pitch    = 45f;
+    [SerializeField] private float height   = 20f;
+    [SerializeField] private float distance = 0f;
+    [SerializeField] private float pitch    = 89f;
 
     [Header("Follow")]
     [SerializeField] private float smoothSpeed = 8f;
 
     [Header("Collision")]
-    [SerializeField] private float collisionOffset = 0.2f;
+    [SerializeField] private float collisionOffset  = 0.2f;
+    [SerializeField] private float minCameraDistance = 2f;
     [SerializeField] private LayerMask collisionMask = ~0;
 
     private Vector3     _offset;
@@ -60,11 +61,13 @@ public class CameraController : MonoBehaviour
         float nearestFromCamera = float.MaxValue;
         bool  anyHit            = false;
 
+        Transform playerRoot = target != null ? target.root : null;
         for (int i = 0; i < count; i++)
         {
             var h = _hitBuffer[i];
-            // Skip anything on the player's hierarchy (CharacterController etc.)
-            if (target != null && h.transform.IsChildOf(target)) continue;
+            if (playerRoot != null && h.transform.IsChildOf(playerRoot)) continue;
+            // Ignore floors and ceilings — only walls should pull the camera in.
+            if (Mathf.Abs(h.normal.y) > 0.7f) continue;
             if (h.distance < nearestFromCamera)
             {
                 nearestFromCamera = h.distance;
@@ -78,7 +81,7 @@ public class CameraController : MonoBehaviour
             // Camera should sit just outside the wall on the camera's side (+offset),
             // clamped so it never exceeds the desired position.
             float distFromPlayer = maxDist - nearestFromCamera;
-            return from + dirNorm * Mathf.Clamp(distFromPlayer + collisionOffset, 0f, maxDist);
+            return from + dirNorm * Mathf.Clamp(distFromPlayer + collisionOffset, minCameraDistance, maxDist);
         }
 
         return to;
