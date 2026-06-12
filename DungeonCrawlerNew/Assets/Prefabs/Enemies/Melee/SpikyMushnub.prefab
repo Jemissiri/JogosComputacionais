@@ -65,6 +65,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 834ce4609889d65e7af701bdd00e1b01, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5485116772213994876}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 834ce4609889d65e7af701bdd00e1b01, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5681469873608273204}
   m_SourcePrefab: {fileID: 100100000, guid: 834ce4609889d65e7af701bdd00e1b01, type: 3}
 --- !u!1 &5744081666346634742 stripped
 GameObject:
@@ -138,3 +141,20 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &-5681469873608273204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744081666346634742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73f5b90bcce32b9aa8476783840c226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
+  maxHealth: 50
+  detectionRange: 10
+  attackDamage: 10
+  attackRange: 1.5
+  attackCooldown: 1.5

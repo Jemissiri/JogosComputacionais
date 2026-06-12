@@ -54,20 +54,31 @@ public class BlinkController : MonoBehaviour
     private Vector3 GetBlinkDestination(Vector3 origin, Vector3 dir)
     {
         float skinWidth = 0.15f;
-        Vector3 bottom = origin + _cc.center - Vector3.up * (_cc.height / 2f - _cc.radius);
-        Vector3 top    = origin + _cc.center + Vector3.up * (_cc.height / 2f - _cc.radius);
 
-        int count = Physics.CapsuleCastNonAlloc(bottom, top, _cc.radius, dir, _hitBuffer,
-                                               blinkDistance, ~0, QueryTriggerInteraction.Ignore);
+        // CapsuleCast is unreliable against concave MeshColliders (same issue as camera).
+        // Cast 3 parallel rays (center + left/right at capsule radius) to approximate the capsule shape.
+        Vector3 side = Vector3.Cross(dir, Vector3.up).normalized * _cc.radius;
+        Vector3 center = origin + _cc.center;
+        Vector3[] rayOrigins = { center, center + side, center - side };
+
+        bool prevBackfaces = Physics.queriesHitBackfaces;
+        Physics.queriesHitBackfaces = true;
+
         float nearest = float.MaxValue;
-        for (int i = 0; i < count; i++)
+        foreach (var o in rayOrigins)
         {
-            var h = _hitBuffer[i];
-            if (h.distance <= 0f) continue;
-            if (h.transform.IsChildOf(transform.root)) continue;
-            if (Mathf.Abs(h.normal.y) > 0.7f) continue;
-            if (h.distance < nearest) nearest = h.distance;
+            int count = Physics.RaycastNonAlloc(o, dir, _hitBuffer, blinkDistance,
+                                                ~0, QueryTriggerInteraction.Ignore);
+            for (int i = 0; i < count; i++)
+            {
+                var h = _hitBuffer[i];
+                if (h.distance <= 0f) continue;
+                if (h.transform.IsChildOf(transform.root)) continue;
+                if (h.distance < nearest) nearest = h.distance;
+            }
         }
+
+        Physics.queriesHitBackfaces = prevBackfaces;
 
         if (nearest < float.MaxValue)
             return origin + dir * Mathf.Max(nearest - skinWidth, 0f);
