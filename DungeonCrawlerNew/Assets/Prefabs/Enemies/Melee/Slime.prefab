@@ -162,3 +162,5 @@ MonoBehaviour:
   attackDamage: 25
   attackRange: 1.5
   attackCooldown: 1.5
+  attackStartDelay: 0.2
+  attackHitDelay: 0.4

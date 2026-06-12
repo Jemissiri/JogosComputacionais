@@ -37,7 +37,10 @@ public class Projectile : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            // TODO: hook up to enemy health
+            if (other.TryGetComponent(out BaseEnemy enemy))
+                enemy.TakeDamage(damage);
+            else if (other.transform.parent != null && other.transform.parent.TryGetComponent(out BaseEnemy parentEnemy))
+                parentEnemy.TakeDamage(damage);
         }
 
         SpawnHitEffect();

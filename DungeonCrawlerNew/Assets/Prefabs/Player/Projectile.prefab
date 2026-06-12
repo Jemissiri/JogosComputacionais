@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c687df3376fb86fba85af0adedf163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  damage: 20
+  damage: 25
   maxRange: 10
   hitEffectPrefab: {fileID: 2504214343621411470, guid: 3189fe83a58309e27b8eb774f0b3eb41, type: 3}
 --- !u!1001 &2638374196690401762
