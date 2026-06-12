@@ -33,9 +33,15 @@ public class WaveManager : MonoBehaviour
     [Header("Door")]
     [SerializeField] private GameObject door;
 
+    [Header("Trigger")]
+    [SerializeField] private float triggerRange = 10f;
+
     private int _currentWave = 0;
     private int _enemiesAlive = 0;
     private bool _spawning = false;
+    private int _spawnIndex = 0;
+    private bool _triggered = false;
+    private Transform _player;
 
     private void Awake()
     {
@@ -45,7 +51,24 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SpawnWave(_currentWave));
+        var playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null) _player = playerObj.transform;
+    }
+
+    private void Update()
+    {
+        if (_triggered) return;
+        if (_player == null)
+        {
+            var playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null) _player = playerObj.transform;
+            else return;
+        }
+        if (Vector3.Distance(transform.position, _player.position) <= triggerRange)
+        {
+            _triggered = true;
+            StartCoroutine(SpawnWave(_currentWave));
+        }
     }
 
     private IEnumerator SpawnWave(int waveIndex)
@@ -62,7 +85,8 @@ public class WaveManager : MonoBehaviour
         {
             for (int i = 0; i < entry.count; i++)
             {
-                Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                Transform spawnPoint = spawnPoints[_spawnIndex % spawnPoints.Length];
+                _spawnIndex++;
                 StartCoroutine(SpawnEnemy(entry.enemyPrefab, spawnPoint));
                 yield return new WaitForSeconds(0.5f);
             }
@@ -80,9 +104,14 @@ public class WaveManager : MonoBehaviour
 
         yield return new WaitForSeconds(circleDelay);
 
-        // Spawn enemy below ground
-        Vector3 startPos = spawnPoint.position + Vector3.down * spawnRiseDistance;
-        GameObject enemy = Instantiate(prefab, startPos, spawnPoint.rotation);
+        // Snap spawn position to nearest NavMesh point so the agent connects cleanly.
+        UnityEngine.AI.NavMeshHit navHit;
+        Vector3 spawnPos = UnityEngine.AI.NavMesh.SamplePosition(spawnPoint.position, out navHit, 5f, UnityEngine.AI.NavMesh.AllAreas)
+            ? navHit.position : spawnPoint.position;
+
+        Vector3 startPos = spawnPos + Vector3.down * spawnRiseDistance;
+        Vector3 targetPos = spawnPos;
+        GameObject enemy = Instantiate(prefab, spawnPos, spawnPoint.rotation);
 
         // Disable AI while rising
         if (enemy.TryGetComponent(out BaseEnemy baseEnemy))
@@ -90,9 +119,10 @@ public class WaveManager : MonoBehaviour
         if (enemy.TryGetComponent(out UnityEngine.AI.NavMeshAgent agent))
             agent.enabled = false;
 
+        enemy.transform.position = startPos;
+
         // Rise up
         float elapsed = 0f;
-        Vector3 targetPos = spawnPoint.position;
         while (elapsed < spawnRiseDuration)
         {
             elapsed += Time.deltaTime;

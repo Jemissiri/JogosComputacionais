@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 719805408444236110}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   damage: 20
-  maxRange: 20
+  maxRange: 10
   hitEffectPrefab: {fileID: 2504214343621411470, guid: 3189fe83a58309e27b8eb774f0b3eb41, type: 3}
 --- !u!1001 &2638374196690401762
 PrefabInstance:

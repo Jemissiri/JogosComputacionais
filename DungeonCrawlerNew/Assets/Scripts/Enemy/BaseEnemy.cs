@@ -35,6 +35,12 @@ public abstract class BaseEnemy : MonoBehaviour
     protected virtual void Update()
     {
         if (_isDead) return;
+        if (_player == null)
+        {
+            var playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null) _player = playerObj.transform;
+            else return;
+        }
         HandleBehaviour();
     }
 
@@ -51,7 +57,7 @@ public abstract class BaseEnemy : MonoBehaviour
     protected virtual void Die()
     {
         _isDead = true;
-        _agent.ResetPath();
+        if (_agent.isOnNavMesh) _agent.ResetPath();
         _agent.enabled = false;
         _animator.SetBool(HashIsDead, true);
         if (WaveManager.Instance != null) WaveManager.Instance.OnEnemyDied();
@@ -60,11 +66,13 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected bool PlayerInRange(float range)
     {
+        if (_player == null) return false;
         return Vector3.Distance(transform.position, _player.position) <= range;
     }
 
     protected void FacePlayer()
     {
+        if (_player == null) return;
         Vector3 dir = (_player.position - transform.position);
         dir.y = 0f;
         if (dir.sqrMagnitude > 0.01f)
