@@ -1617,8 +1617,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   waves:
   - enemies:
-    - enemyPrefab: {fileID: 1209923538060720033, guid: f0177b399d3a74f519f08606b66085f1, type: 3}
-      count: 3
+    - enemyPrefab: {fileID: 6043170713531345892, guid: 3586aa60522125010858e11b36d8ebc4, type: 3}
+      count: 1
   spawnPoints:
   - {fileID: 913128924}
   - {fileID: 1105473974}
@@ -1628,6 +1628,7 @@ MonoBehaviour:
   spawnRiseDuration: 1
   circleDelay: 1
   door: {fileID: 412759787352902618}
+  triggerRange: 10
 --- !u!4 &1452047290
 Transform:
   m_ObjectHideFlags: 0

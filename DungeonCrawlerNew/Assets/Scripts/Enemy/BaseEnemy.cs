@@ -7,6 +7,7 @@ public abstract class BaseEnemy : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] protected float maxHealth = 50f;
+    [SerializeField] protected float moveSpeed = 2.5f;
 
     [Header("Detection")]
     [SerializeField] protected float detectionRange = 10f;
@@ -30,6 +31,7 @@ public abstract class BaseEnemy : MonoBehaviour
         if (playerObj != null) _player = playerObj.transform;
         else Debug.LogWarning(name + ": No GameObject with tag 'Player' found.");
         _currentHealth = maxHealth;
+        _agent.speed = moveSpeed;
     }
 
     protected virtual void Update()
