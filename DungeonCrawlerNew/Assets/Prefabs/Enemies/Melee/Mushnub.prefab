@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
   maxHealth: 125
   moveSpeed: 2
-  detectionRange: 14
+  detectionRange: 25
   attackDamage: 12
   attackRange: 1.5
   attackCooldown: 2

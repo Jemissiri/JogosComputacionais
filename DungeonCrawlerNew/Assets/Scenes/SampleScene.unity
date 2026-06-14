@@ -410,6 +410,7 @@ Transform:
   m_Children:
   - {fileID: 913128924}
   - {fileID: 1105473974}
+  - {fileID: 621738091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
@@ -1112,6 +1113,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565859974}
   m_CullTransparentMesh: 1
+--- !u!1 &621738090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 621738091}
+  m_Layer: 0
+  m_Name: Spawnpoint3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &621738091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621738090}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 236625997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1617,11 +1649,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   waves:
   - enemies:
+    - enemyPrefab: {fileID: 1209923538060720033, guid: f0177b399d3a74f519f08606b66085f1, type: 3}
+      count: 6
+  - enemies:
+    - enemyPrefab: {fileID: 330192427342678207, guid: b52c1dfc52c66ec0c8b122512cbc4d22, type: 3}
+      count: 4
+    - enemyPrefab: {fileID: 8198522802009925655, guid: 81c23d68c6ec0b062867029b93b746fe, type: 3}
+      count: 2
+  - enemies:
+    - enemyPrefab: {fileID: 5744081666346634742, guid: 8712d1581a323ef19a888f7d0ef3c7a5, type: 3}
+      count: 2
     - enemyPrefab: {fileID: 6043170713531345892, guid: 3586aa60522125010858e11b36d8ebc4, type: 3}
       count: 1
   spawnPoints:
   - {fileID: 913128924}
   - {fileID: 1105473974}
+  - {fileID: 621738091}
   magicCirclePrefab: {fileID: 3280519133390621005, guid: e59b55b3a1960517396b1ff96c2fdc5a, type: 3}
   timeBetweenWaves: 2
   spawnRiseDistance: 2
