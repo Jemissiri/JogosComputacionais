@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MushroomKingEnemy
   maxHealth: 250
-  moveSpeed: 2.5
+  moveSpeed: 3.5
   detectionRange: 20
   attackDamage: 20
   attackRange: 12
@@ -201,7 +201,7 @@ MonoBehaviour:
   attackFireDelay: 0.5
   projectilePrefab: {fileID: 100006, guid: ac385da764eb2482294f7a59f1303e70, type: 3}
   projectileSpawnPoint: {fileID: 8336549040385443250}
-  projectileSpeed: 10
+  projectileSpeed: 12.5
   backAwayRotateSpeed: 240
 --- !u!4 &8097392433327122741 stripped
 Transform:
