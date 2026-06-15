@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public static WaveManager Instance { get; private set; }
-
     [System.Serializable]
     public class EnemyWaveEntry
     {
@@ -42,12 +40,6 @@ public class WaveManager : MonoBehaviour
     private int _spawnIndex = 0;
     private bool _triggered = false;
     private Transform _player;
-
-    private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-    }
 
     private void Start()
     {
@@ -133,7 +125,7 @@ public class WaveManager : MonoBehaviour
         enemy.transform.position = targetPos;
 
         // Enable AI
-        if (baseEnemy != null) baseEnemy.enabled = true;
+        if (baseEnemy != null) { baseEnemy.enabled = true; baseEnemy.SpawnedBy = this; }
         if (agent != null) agent.enabled = true;
 
         // Fade out magic circle

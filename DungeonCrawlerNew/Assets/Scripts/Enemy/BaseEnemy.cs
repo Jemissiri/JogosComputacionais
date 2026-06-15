@@ -15,6 +15,8 @@ public abstract class BaseEnemy : MonoBehaviour
     protected float _currentHealth;
     protected bool _isDead = false;
 
+    public WaveManager SpawnedBy { get; set; }
+
     protected NavMeshAgent _agent;
     protected Animator _animator;
     protected Transform _player;
@@ -62,7 +64,7 @@ public abstract class BaseEnemy : MonoBehaviour
         if (_agent.isOnNavMesh) _agent.ResetPath();
         _agent.enabled = false;
         _animator.SetBool(HashIsDead, true);
-        if (WaveManager.Instance != null) WaveManager.Instance.OnEnemyDied();
+        if (SpawnedBy != null) SpawnedBy.OnEnemyDied();
         Destroy(gameObject, 3f);
     }
 

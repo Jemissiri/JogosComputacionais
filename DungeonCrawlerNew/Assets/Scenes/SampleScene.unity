@@ -266,6 +266,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aa48bfac41b498b6a0ed5680914b885, type: 3}
+--- !u!1 &56640997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 56640999}
+  - component: {fileID: 56640998}
+  m_Layer: 0
+  m_Name: WaveManagerRoom2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &56640998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56640997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90d5d0a11dc5975cbbdd9d03c8d6852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  waves:
+  - enemies:
+    - enemyPrefab: {fileID: 6685813760363125827, guid: 4109727b454d31065bbc6f0e1593fe64, type: 3}
+      count: 1
+  spawnPoints:
+  - {fileID: 1536975551}
+  magicCirclePrefab: {fileID: 3280519133390621005, guid: e59b55b3a1960517396b1ff96c2fdc5a, type: 3}
+  timeBetweenWaves: 4
+  spawnRiseDistance: 2
+  spawnRiseDuration: 1
+  circleDelay: 1
+  door: {fileID: 643870424}
+  triggerRange: 10
+--- !u!4 &56640999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56640997}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 77}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &120040959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3059779296551298858, guid: 5f7b16205f0117c92ab573baa2eb3101, type: 3}
@@ -398,6 +455,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: corridor (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8062623199789149705, guid: bbce1295f92e5346d8253a631250e6b2, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 2120c6508b58bba79bf26964006c784c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1568,37 +1629,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.1, y: 3.7, z: 0.5}
   m_Center: {x: -0.00000004470348, y: 1.6999999, z: 0}
---- !u!1 &752055883
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 752055884}
-  m_Layer: 0
-  m_Name: SpawnpointsRoom2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &752055884
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752055883}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15913, y: -0, z: 83.50311}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1917,6 +1947,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: room-large
       objectReference: {fileID: 0}
+    - target: {fileID: 7884948670343784792, guid: 5641a8f0639cc73d5b79fff821a43e5a, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: dc21d97ba11127ee2ae7aa1c4dc1d348, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2228,6 +2262,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1196737743968316513, guid: ca716f80eb94d5ee49ae99055f83dc90, type: 3}
   m_PrefabInstance: {fileID: 8147003813683859407}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1274967199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1274967200}
+  m_Layer: 0
+  m_Name: SpawnpointsRoom2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1274967200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274967199}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.15913, y: -0, z: 83.50311}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1536975551}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1296720525 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 236773942027604089, guid: bbce1295f92e5346d8253a631250e6b2, type: 3}
@@ -2473,6 +2539,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1037267140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1536975550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1536975551}
+  m_Layer: 0
+  m_Name: Spawnpoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1536975551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536975550}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1274967200}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1650663410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6030270054633098809, guid: b0827dee08669a05aa4497a7ca4b42bf, type: 3}
@@ -2575,37 +2672,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7705770390065647958, guid: c8a0e4658e71a6be482762a449735ece, type: 3}
   m_PrefabInstance: {fileID: 4530852103692249168}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1972088649
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1972088650}
-  m_Layer: 0
-  m_Name: WaveManagerRoom2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1972088650
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1972088649}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15913, y: -0, z: 83.50311}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2147118481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 236773942027604089, guid: bbce1295f92e5346d8253a631250e6b2, type: 3}
@@ -3151,5 +3217,5 @@ SceneRoots:
   - {fileID: 408582169}
   - {fileID: 1202435026}
   - {fileID: 643870423}
-  - {fileID: 1972088650}
-  - {fileID: 752055884}
+  - {fileID: 56640999}
+  - {fileID: 1274967200}
