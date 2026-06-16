@@ -212,8 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4540e934667a9f7a59e146c0562e1ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
-  maxHealth: 50
-  moveSpeed: 2.5
+  maxHealth: 90
+  moveSpeed: 5
   detectionRange: 30
   attackDamage: 12
   attackRange: 12
