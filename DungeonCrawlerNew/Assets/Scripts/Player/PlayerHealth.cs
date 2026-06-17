@@ -44,6 +44,12 @@ public class PlayerHealth : MonoBehaviour
         // hook it up to the game over screen after
     }
 
+    public void ResetHealth()
+    {
+        _currentHealth = maxHealth;
+        UpdateSlider();
+    }
+
     // For testing purposes only
     // private void Update()
     // {

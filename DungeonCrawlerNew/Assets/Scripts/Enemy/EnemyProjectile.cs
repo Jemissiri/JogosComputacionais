@@ -7,15 +7,17 @@ public class EnemyProjectile : MonoBehaviour
     private float _maxRange = 20f;
     private Vector3 _startPosition;
     private Rigidbody _rb;
+    private BossAgent _bossAgent;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
     }
 
-    public void Init(Vector3 direction, float speed, float damage)
+    public void Init(Vector3 direction, float speed, float damage, BossAgent bossAgent = null)
     {
         _damage = damage;
+        _bossAgent = bossAgent;
         _startPosition = transform.position;
         _rb.linearVelocity = direction * speed;
     }
@@ -35,6 +37,9 @@ public class EnemyProjectile : MonoBehaviour
         {
             if (other.TryGetComponent(out PlayerHealth ph))
                 ph.TakeDamage(_damage);
+
+            if (_bossAgent != null)
+                _bossAgent.AddReward(0.2f);
         }
 
         Destroy(gameObject);
