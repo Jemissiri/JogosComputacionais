@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -14,6 +15,8 @@ public class BossAgent : Agent
     [SerializeField] private float rangedRange = 10f;
     [SerializeField] private float rangedDamage = 15f;
     [SerializeField] private float rangedCooldown = 2f;
+    [SerializeField] private float rangedFireDelay = 0.35f;
+    [SerializeField] private float meleeHitDelay = 0.4f;
     [SerializeField] private float maxHealth = 300f;
 
     [Header("Phase 2")]
@@ -33,9 +36,10 @@ public class BossAgent : Agent
     private float _lastRangedTime;
     private bool _isPhase2;
 
-    private static readonly int HashIsMoving = Animator.StringToHash("IsMoving");
-    private static readonly int HashIsAttacking = Animator.StringToHash("IsAttacking");
-    private static readonly int HashIsDead = Animator.StringToHash("IsDead");
+    private static readonly int HashIsMoving     = Animator.StringToHash("IsMoving");
+    private static readonly int HashIsAttacking   = Animator.StringToHash("IsAttacking");
+    private static readonly int HashIsAttacking2  = Animator.StringToHash("IsAttacking2");
+    private static readonly int HashIsDead        = Animator.StringToHash("IsDead");
 
     public override void Initialize()
     {
@@ -49,14 +53,19 @@ public class BossAgent : Agent
         _isPhase2 = false;
         _agent.speed = moveSpeed;
 
-        transform.localPosition = new Vector3(
-            Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f));
+        // Reset cooldowns so both attacks are available immediately
+        _lastMeleeTime  = -99f;
+        _lastRangedTime = -99f;
+
+        // Warp so NavMeshAgent internal state matches the new transform position
+        Vector3 bossSpawn = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f));
+        _agent.Warp(bossSpawn);
+        transform.position = bossSpawn;
 
         if (playerTransform != null)
-            playerTransform.localPosition = new Vector3(
-                Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f));
+            playerTransform.position = new Vector3(Random.Range(-8f, 8f), 1f, Random.Range(-8f, 8f));
 
-        if (playerTransform.TryGetComponent(out PlayerHealth ph))
+        if (playerTransform != null && playerTransform.TryGetComponent(out PlayerHealth ph))
             ph.ResetHealth();
     }
 
@@ -112,19 +121,48 @@ public class BossAgent : Agent
             case 2: TryRangedAttack(); break;
         }
 
+        // Check if player died this step
+        if (playerTransform != null && playerTransform.TryGetComponent(out PlayerHealth playerHealth))
+        {
+            if (playerHealth.CurrentHealth <= 0f)
+            {
+                OnPlayerDied();
+                return;
+            }
+        }
+
+        // Step penalty to encourage efficiency
         AddReward(-0.001f);
+
+        // Reward for being in ranged sweet spot
+        if (playerTransform != null)
+        {
+            float dist = Vector3.Distance(transform.position, playerTransform.position);
+            // Strongly reward staying at ranged distance
+            if (dist >= meleeRange * 3f && dist <= rangedRange)
+                AddReward(0.003f);
+            // Penalize being too close
+            else if (dist < meleeRange)
+                AddReward(-0.005f);
+            // Penalize being too far
+            else if (dist > rangedRange)
+                AddReward(-0.003f);
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
+        var kb = UnityEngine.InputSystem.Keyboard.current;
+        if (kb == null) return;
+
         var continuous = actionsOut.ContinuousActions;
-        continuous[0] = Input.GetAxis("Horizontal");
-        continuous[1] = Input.GetAxis("Vertical");
+        continuous[0] = (kb.dKey.isPressed ? 1f : 0f) - (kb.aKey.isPressed ? 1f : 0f);
+        continuous[1] = (kb.wKey.isPressed ? 1f : 0f) - (kb.sKey.isPressed ? 1f : 0f);
 
         var discrete = actionsOut.DiscreteActions;
         discrete[0] = 0;
-        if (Input.GetKey(KeyCode.J)) discrete[0] = 1;
-        if (Input.GetKey(KeyCode.K)) discrete[0] = 2;
+        if (kb.jKey.isPressed) discrete[0] = 1;
+        if (kb.kKey.isPressed) discrete[0] = 2;
     }
 
     private void TryMeleeAttack()
@@ -135,14 +173,8 @@ public class BossAgent : Agent
         if (dist > meleeRange) return;
 
         _lastMeleeTime = Time.time;
-        _animator.SetTrigger(HashIsAttacking);
-
-        if (playerTransform.TryGetComponent(out PlayerHealth ph))
-        {
-            float damage = _isPhase2 ? meleeAttackDamage * phase2DamageBonus : meleeAttackDamage;
-            ph.TakeDamage(damage);
-            AddReward(0.3f);
-        }
+        _animator.SetTrigger(HashIsAttacking2);
+        StartCoroutine(MeleeAfterDelay());
     }
 
     private void TryRangedAttack()
@@ -154,8 +186,25 @@ public class BossAgent : Agent
 
         _lastRangedTime = Time.time;
         _animator.SetTrigger(HashIsAttacking);
+        StartCoroutine(FireAfterDelay());
+        AddReward(0.4f);
+    }
+
+    private IEnumerator MeleeAfterDelay()
+    {
+        yield return new WaitForSeconds(meleeHitDelay);
+        if (playerTransform != null && playerTransform.TryGetComponent(out PlayerHealth ph))
+        {
+            float damage = _isPhase2 ? meleeAttackDamage * phase2DamageBonus : meleeAttackDamage;
+            ph.TakeDamage(damage);
+            AddReward(0.3f);
+        }
+    }
+
+    private IEnumerator FireAfterDelay()
+    {
+        yield return new WaitForSeconds(rangedFireDelay);
         FireProjectile();
-        AddReward(0.1f);
     }
 
     private void FireProjectile()
@@ -167,7 +216,7 @@ public class BossAgent : Agent
         dir.y = 0f;
         dir.Normalize();
 
-        GameObject proj = Instantiate(projectilePrefab, spawnFrom.position, 
+        GameObject proj = Instantiate(projectilePrefab, spawnFrom.position,
                                       Quaternion.LookRotation(dir));
         if (proj.TryGetComponent(out EnemyProjectile ep))
             ep.Init(dir, 12f, _isPhase2 ? rangedDamage * phase2DamageBonus : rangedDamage, this);

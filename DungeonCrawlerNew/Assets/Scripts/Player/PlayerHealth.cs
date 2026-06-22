@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     private float _currentHealth;
 
+    public float CurrentHealth => _currentHealth;
+    public float MaxHealth => maxHealth;
+
     [Header("UI")]
     [SerializeField] private Slider healthSlider;
 
