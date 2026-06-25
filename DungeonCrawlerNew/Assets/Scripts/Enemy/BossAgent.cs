@@ -16,6 +16,7 @@ public class BossAgent : Agent
     [SerializeField] private float rangedDamage = 15f;
     [SerializeField] private float rangedCooldown = 2f;
     [SerializeField] private float rangedFireDelay = 0.35f;
+    [SerializeField] private float projectileSpeed = 12f;
     [SerializeField] private float meleeHitDelay = 0.4f;
     [SerializeField] private float maxHealth = 300f;
 
@@ -35,6 +36,9 @@ public class BossAgent : Agent
     private float _lastMeleeTime;
     private float _lastRangedTime;
     private bool _isPhase2;
+    private BossRoomManager _roomManager;
+    private Vector3 _arenaOrigin = Vector3.zero;
+    private bool _isDead = false;
 
     private static readonly int HashIsMoving     = Animator.StringToHash("IsMoving");
     private static readonly int HashIsAttacking   = Animator.StringToHash("IsAttacking");
@@ -45,6 +49,25 @@ public class BossAgent : Agent
     {
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
+
+        if (playerTransform == null)
+        {
+            var playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null) playerTransform = playerObj.transform;
+        }
+    }
+
+    public void SetRoomManager(BossRoomManager manager)
+    {
+        _roomManager = manager;
+        _arenaOrigin = transform.position;
+    }
+
+    public void ActivateBoss()
+    {
+        // Called by BossRoomManager when the player enters the room.
+        // In inference mode the agent is already running; this is a hook for
+        // any future activation logic (e.g. intro cutscene).
     }
 
     public override void OnEpisodeBegin()
@@ -52,12 +75,13 @@ public class BossAgent : Agent
         _currentHealth = maxHealth;
         _isPhase2 = false;
         _agent.speed = moveSpeed;
-
-        // Reset cooldowns so both attacks are available immediately
         _lastMeleeTime  = -99f;
         _lastRangedTime = -99f;
 
-        // Warp so NavMeshAgent internal state matches the new transform position
+        // In game mode (_roomManager set) the boss was already placed by BossRoomManager —
+        // skip random repositioning so it doesn't teleport after the spawn rise.
+        if (_roomManager != null) return;
+
         Vector3 bossSpawn = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f));
         _agent.Warp(bossSpawn);
         transform.position = bossSpawn;
@@ -71,12 +95,14 @@ public class BossAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition);
+        // Offset absolute positions by _arenaOrigin so the model always sees
+        // coordinates in the same range it was trained on (~±8 units near zero).
+        sensor.AddObservation(transform.position - _arenaOrigin);
         sensor.AddObservation(transform.forward);
 
         if (playerTransform != null)
         {
-            sensor.AddObservation(playerTransform.localPosition);
+            sensor.AddObservation(playerTransform.position - _arenaOrigin);
             Vector3 dirToPlayer = (playerTransform.position - transform.position).normalized;
             sensor.AddObservation(dirToPlayer);
             sensor.AddObservation(Vector3.Distance(transform.position, playerTransform.position));
@@ -96,6 +122,8 @@ public class BossAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        if (_isDead) return;
+
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
 
@@ -219,7 +247,7 @@ public class BossAgent : Agent
         GameObject proj = Instantiate(projectilePrefab, spawnFrom.position,
                                       Quaternion.LookRotation(dir));
         if (proj.TryGetComponent(out EnemyProjectile ep))
-            ep.Init(dir, 12f, _isPhase2 ? rangedDamage * phase2DamageBonus : rangedDamage, this);
+            ep.Init(dir, projectileSpeed, _isPhase2 ? rangedDamage * phase2DamageBonus : rangedDamage, this);
         else
             Destroy(proj);
     }
@@ -238,9 +266,21 @@ public class BossAgent : Agent
 
         if (_currentHealth <= 0f)
         {
-            AddReward(-1f);
+            _isDead = true;
             _animator.SetBool(HashIsDead, true);
-            EndEpisode();
+            _roomManager?.OnBossDefeated();
+
+            if (_roomManager != null)
+            {
+                _agent.isStopped = true;
+                _agent.enabled = false;
+                StartCoroutine(DieAndDestroy());
+            }
+            else
+            {
+                AddReward(-1f);
+                EndEpisode();
+            }
         }
     }
 
@@ -248,5 +288,16 @@ public class BossAgent : Agent
     {
         AddReward(1f);
         EndEpisode();
+    }
+
+    private IEnumerator DieAndDestroy()
+    {
+        yield return null; // wait one frame for IsDead to trigger the transition
+        yield return new WaitUntil(() =>
+        {
+            var state = _animator.GetCurrentAnimatorStateInfo(0);
+            return state.IsName("Death") && state.normalizedTime >= 0.95f;
+        });
+        Destroy(gameObject);
     }
 }

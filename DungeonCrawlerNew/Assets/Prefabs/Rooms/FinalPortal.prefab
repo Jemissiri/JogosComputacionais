@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &791741244725448412
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_Name
+      value: FinalPortal
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.238
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.74778605
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.0699997
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.238
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.1367989
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.238
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.238
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 400006, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.050011985
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0000001710439
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 125.41606
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900000, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900002, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900004, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900006, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100010, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8740607252498544176}
+  m_SourcePrefab: {fileID: 100100000, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+--- !u!1 &791741244725479542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100010, guid: c7235ac1b5d8d874bb533f31f4e90879, type: 3}
+  m_PrefabInstance: {fileID: 791741244725448412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8740607252498544176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791741244725479542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1

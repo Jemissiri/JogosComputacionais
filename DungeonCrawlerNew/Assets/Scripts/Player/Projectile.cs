@@ -41,6 +41,10 @@ public class Projectile : MonoBehaviour
                 enemy.TakeDamage(damage);
             else if (other.transform.parent != null && other.transform.parent.TryGetComponent(out BaseEnemy parentEnemy))
                 parentEnemy.TakeDamage(damage);
+            else if (other.TryGetComponent(out BossAgent boss))
+                boss.TakeDamage(damage);
+            else if (other.transform.parent != null && other.transform.parent.TryGetComponent(out BossAgent parentBoss))
+                parentBoss.TakeDamage(damage);
         }
 
         SpawnHitEffect();

@@ -213,8 +213,9 @@ MonoBehaviour:
   meleeCooldown: 1.5
   rangedRange: 10
   rangedDamage: 15
-  rangedCooldown: 2
+  rangedCooldown: 1.5
   rangedFireDelay: 0.35
+  projectileSpeed: 17
   meleeHitDelay: 0.4
   maxHealth: 300
   phase2Threshold: 0.5

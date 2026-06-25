@@ -5,6 +5,7 @@ public class PlayerDebug : MonoBehaviour
 {
     [SerializeField] private Vector3 resetPosition1 = new Vector3(0f, 1f, 0f);
     [SerializeField] private Vector3 resetPosition2 = new Vector3(0f, 1f, 0f);
+    [SerializeField] private Vector3 resetPosition3 = new Vector3(0f, 1f, 0f);
 
     private CharacterController _cc;
 
@@ -19,6 +20,8 @@ public class PlayerDebug : MonoBehaviour
             ResetPosition1();
         if (Keyboard.current.oKey.wasPressedThisFrame)
             ResetPosition2();
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+            ResetPosition3();
     }
 
     private void ResetPosition1()
@@ -46,6 +49,20 @@ public class PlayerDebug : MonoBehaviour
         else
         {
             transform.position = resetPosition2;
+        }
+    }
+
+    private void ResetPosition3()
+    {
+        if (_cc != null)
+        {
+            _cc.enabled = false;
+            transform.position = resetPosition3;
+            _cc.enabled = true;
+        }
+        else
+        {
+            transform.position = resetPosition3;
         }
     }
 }
