@@ -20,7 +20,7 @@ https://quaternius.com/packs/ultimatemonsters.html         License: CC0
 
 
 
-
+https://fonts.google.com/specimen/Cinzel?query=Cinzel&preview.script=Latn  Fonte usada
 
 
 
