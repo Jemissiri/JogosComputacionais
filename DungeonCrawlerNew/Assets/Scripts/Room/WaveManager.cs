@@ -34,8 +34,12 @@ public class WaveManager : MonoBehaviour
     [Header("Trigger")]
     [SerializeField] private float triggerRange = 10f;
 
+    [Header("UI")]
+    [SerializeField] private WaveProgressUI waveProgressUI;
+
     private int _currentWave = 0;
     private int _enemiesAlive = 0;
+    private int _totalEnemiesInWave = 0;
     private bool _spawning = false;
     private int _spawnIndex = 0;
     private bool _triggered = false;
@@ -45,6 +49,10 @@ public class WaveManager : MonoBehaviour
     {
         var playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null) _player = playerObj.transform;
+
+        // Hide UI at start
+        if (waveProgressUI != null)
+            waveProgressUI.Hide();
     }
 
     private void Update()
@@ -69,8 +77,19 @@ public class WaveManager : MonoBehaviour
         Wave wave = waves[waveIndex];
 
         // Count total enemies in wave
+        _totalEnemiesInWave = 0;
         foreach (var entry in wave.enemies)
-            _enemiesAlive += entry.count;
+            _totalEnemiesInWave += entry.count;
+
+        _enemiesAlive = _totalEnemiesInWave;
+
+        // Update UI
+        if (waveProgressUI != null)
+        {
+            waveProgressUI.Show();
+            waveProgressUI.UpdateWave(waveIndex + 1, waves.Count);
+            waveProgressUI.UpdateEnemies(_enemiesAlive, _totalEnemiesInWave);
+        }
 
         // Spawn each enemy type
         foreach (var entry in wave.enemies)
@@ -89,14 +108,12 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy(GameObject prefab, Transform spawnPoint)
     {
-        // Spawn magic circle
         GameObject circle = null;
         if (magicCirclePrefab != null)
             circle = Instantiate(magicCirclePrefab, spawnPoint.position, Quaternion.identity);
 
         yield return new WaitForSeconds(circleDelay);
 
-        // Snap spawn position to nearest NavMesh point so the agent connects cleanly.
         UnityEngine.AI.NavMeshHit navHit;
         Vector3 spawnPos = UnityEngine.AI.NavMesh.SamplePosition(spawnPoint.position, out navHit, 5f, UnityEngine.AI.NavMesh.AllAreas)
             ? navHit.position : spawnPoint.position;
@@ -105,7 +122,6 @@ public class WaveManager : MonoBehaviour
         Vector3 targetPos = spawnPos;
         GameObject enemy = Instantiate(prefab, spawnPos, spawnPoint.rotation);
 
-        // Disable AI while rising
         if (enemy.TryGetComponent(out BaseEnemy baseEnemy))
             baseEnemy.enabled = false;
         if (enemy.TryGetComponent(out UnityEngine.AI.NavMeshAgent agent))
@@ -113,22 +129,19 @@ public class WaveManager : MonoBehaviour
 
         enemy.transform.position = startPos;
 
-        // Rise up
         float elapsed = 0f;
         while (elapsed < spawnRiseDuration)
         {
             elapsed += Time.deltaTime;
-            enemy.transform.position = Vector3.Lerp(startPos, targetPos, 
+            enemy.transform.position = Vector3.Lerp(startPos, targetPos,
                                                      elapsed / spawnRiseDuration);
             yield return null;
         }
         enemy.transform.position = targetPos;
 
-        // Enable AI
         if (baseEnemy != null) { baseEnemy.enabled = true; baseEnemy.SpawnedBy = this; }
         if (agent != null) agent.enabled = true;
 
-        // Fade out magic circle
         if (circle != null) StartCoroutine(FadeOutCircle(circle));
     }
 
@@ -159,18 +172,21 @@ public class WaveManager : MonoBehaviour
     {
         _enemiesAlive--;
 
+        if (waveProgressUI != null)
+            waveProgressUI.UpdateEnemies(_enemiesAlive, _totalEnemiesInWave);
+
         if (_enemiesAlive > 0) return;
 
         _currentWave++;
 
         if (_currentWave >= waves.Count)
         {
-            // All waves cleared — unlock door
+            if (waveProgressUI != null)
+                waveProgressUI.Hide();
             UnlockDoor();
             return;
         }
 
-        // Start next wave after delay
         StartCoroutine(NextWaveDelay());
     }
 
@@ -184,6 +200,6 @@ public class WaveManager : MonoBehaviour
     {
         Debug.Log("All waves cleared — door unlocked!");
         if (door != null)
-            door.SetActive(false); // or play door open animation
+            door.SetActive(false);
     }
 }

@@ -20,6 +20,9 @@ public class BossRoomManager : MonoBehaviour
     [Header("Trigger")]
     [SerializeField] private float triggerRange = 15f;
 
+    [Header("UI")]
+    [SerializeField] private WaveProgressUI waveProgressUI;
+
     private bool _triggered = false;
     private bool _cleared = false;
     private Transform _player;
@@ -28,6 +31,9 @@ public class BossRoomManager : MonoBehaviour
     {
         var playerObj = GameObject.FindWithTag("Player");
         if (playerObj != null) _player = playerObj.transform;
+
+        if (waveProgressUI != null)
+            waveProgressUI.Hide();
     }
 
     private void Update()
@@ -87,6 +93,14 @@ public class BossRoomManager : MonoBehaviour
         if (agent != null) agent.enabled = true;
         if (navAgent != null) navAgent.enabled = true;
 
+        // Show UI when boss spawns
+        if (waveProgressUI != null)
+        {
+            waveProgressUI.Show();
+            waveProgressUI.UpdateWave(1, 1); // Boss room is always wave 1/1
+            waveProgressUI.UpdateEnemies(1, 1); // 1 boss
+        }
+
         if (circle != null)
             StartCoroutine(FadeOutCircle(circle));
     }
@@ -118,6 +132,13 @@ public class BossRoomManager : MonoBehaviour
     {
         if (_cleared) return;
         _cleared = true;
+
+        // Update UI
+        if (waveProgressUI != null)
+        {
+            waveProgressUI.UpdateEnemies(0, 1);
+            waveProgressUI.Hide();
+        }
 
         if (portalPrefab != null)
             Instantiate(portalPrefab, transform.position, Quaternion.identity);
